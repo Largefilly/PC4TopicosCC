@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simulacion de blobs</title>
+    <style>
+      #panel {
+        font-family: Arial, sans-serif;
+        margin-bottom: 8px;
+      }
+      #stats {
+        margin-top: 4px;
+        padding: 6px;
+        border: 1px solid #ccc;
+        display: block;           /* 👈 ahora va debajo del slider */
+        background: #f9f9f9;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Blobs - Seleccion natural</h1>
+
+    <div id="panel">
+      <label>
+        Velocidad GUI:
+        <input id="speedSlider" type="range" min="50" max="500" value="200" />
+        <span id="speedLabel">200 ms</span>
+      </label>
+
+      <!-- Panel de estadísticas -->
+      <div id="stats" style="background: yellow;">
+        <!-- este amarillo es solo para comprobar que se ve -->
+        Cargando estadísticas...
+      </div>
+    </div>
+
+    <br />
+    <canvas id="elCanvas"></canvas>
+
+    <script src="blobs.js"></script>
+  </body>
+</html>
