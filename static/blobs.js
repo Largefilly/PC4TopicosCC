@@ -8,14 +8,11 @@ async function fetchState() {
 }
 
 function drawBlob(ctx, blob, minSpeed, maxSpeed) {
-  // Evitamos división por cero
   const range = Math.max(maxSpeed - minSpeed, 0.0001);
 
-  // t va de 0 (lento) a 1 (rápido) según la población actual
   const t = (blob.speed - minSpeed) / range;
 
   // Color: de azul (lentos) a rojo (rápidos) pasando por morado
-  // hue: 240° = azul, 0° = rojo
   const hue = (1 - t) * 240;
   ctx.fillStyle = `hsl(${hue}, 80%, 50%)`;
   ctx.strokeStyle = "#000";
@@ -108,13 +105,11 @@ function drawFood(ctx, f) {
         drawFood(ctx, f);
       }
 
-      // --- asegurar min/max velocidad para colorear ---
       if (!isFinite(minSpeed)) {
         minSpeed = 0;
         maxSpeed = 1;
       }
 
-      // --- dibujar blobs ---
       for (const b of blobs) {
         if (b.alive) {
           drawBlob(ctx, b, minSpeed, maxSpeed);
