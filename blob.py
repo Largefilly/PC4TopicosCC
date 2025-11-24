@@ -6,7 +6,7 @@ class Blob:
     def __init__(self, width, height, parent):
         self.worldWidth = width
         self.worldHeight = height
-        self.parent = parent  # referencia al HostAgent
+        self.parent = parent  
 
         # Casa: un punto en el borde del mapa
         side = random.choice(["left", "right", "top", "bottom"])
@@ -28,13 +28,11 @@ class Blob:
         self.y = self.home_y
 
         # Atributos “biológicos”
-        # ⬇️ Más velocidad mínima y más energía para que tengan chance
         self.speed = random.uniform(1.5, 3.0)     # velocidad base
         self.energy = 80                          # energía inicial
         self.alive = True
         self.food_eaten = 0
 
-    # -------- utilitarios --------
     def dist_to(self, x, y):
         return math.hypot(self.x - x, self.y - y)
 
