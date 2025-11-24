@@ -75,7 +75,6 @@ class Blob:
         self.x = self.home_x
         self.y = self.home_y
         self.food_eaten = 0
-        # la energía se mantiene (selección natural)
 
     # -------- interacción con comida / día --------
     def _try_eat(self):
@@ -83,7 +82,6 @@ class Blob:
         if not self.alive:
             return
 
-        # ⬇️ Comer es más fácil y da más energía
         eat_radius = 15
         for i, (fx, fy) in enumerate(self.parent.food):
             if self.dist_to(fx, fy) <= eat_radius:
@@ -102,7 +100,6 @@ class Blob:
             return
 
         if self.parent.phase == "buscar":
-            # buscar comida más cercana
             target = None
             best_d = float("inf")
             for (fx, fy) in self.parent.food:
@@ -115,5 +112,5 @@ class Blob:
             else:
                 self._move_random()
             self._try_eat()
-        else:  # volver a casa
+        else: 
             self._move_towards(self.home_x, self.home_y)
