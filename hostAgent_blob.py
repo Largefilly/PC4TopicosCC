@@ -46,17 +46,14 @@ class HostAgent(Agent):
             print(f"WorldBehaviour corre cada {self.period} segundos")
 
         async def run(self):
-            # si es el inicio del día
             if self.agent.step_in_day == 0:
                 self.agent.start_day()
 
-            # avanzar un paso en todos los blobs
             for b in blobs:
                 b.step()
 
             self.agent.step_in_day += 1
 
-            # criterio para pasar de buscar -> volver
             if self.agent.phase == "buscar":
                 if self.agent.step_in_day >= PASOS_POR_DIA * 0.85 or len(food) == 0:
                     self.agent.phase = "volver"
@@ -64,7 +61,6 @@ class HostAgent(Agent):
             # fin de día
             if self.agent.step_in_day >= PASOS_POR_DIA:
                 self.agent.end_day()
-                # si no quedan blobs vivos, reiniciamos población
                 if not blobs:
                     self.agent.init_population()
                 # nuevo día
@@ -76,9 +72,9 @@ class HostAgent(Agent):
         self.day = 0
         self.phase = "buscar"
 
-        self.init_population()          # llena la lista global blobs
-        self.food = food                # 👈 enlace el atributo al listado global
-        self.blobs = blobs              # opcional pero recomendable
+        self.init_population() 
+        self.food = food               
+        self.blobs = blobs 
 
         self.add_behaviour(self.WorldBehaviour(period=0.2))
 
@@ -127,7 +123,7 @@ class HostAgent(Agent):
         blobs = sobrevivientes + nuevos
         print(f"Sobrevivientes: {len(sobrevivientes)}, nuevos: {len(nuevos)}")
 
-    # -------- estado para la GUI --------
+
     def get_state(self):
         return {
             "day": self.day,
@@ -144,11 +140,9 @@ async def main():
     async def state_controller(_):
         return host.get_state()
 
-    # API para la GUI
     host.web.add_get("/state", state_controller, template=None)
     host.web.start(port=10000)
 
-    # archivos estáticos (html/js)
     base_dir = os.path.dirname(os.path.abspath(__file__))
     static_folder = os.path.join(base_dir, "static")
     host.web.app.router.add_static("/static/", path=static_folder, name="static")
